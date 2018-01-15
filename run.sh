@@ -1,10 +1,9 @@
-#!/bin/bash
+#!/usr/bin/env nix-shell
+#!nix-shell -i bash -p bash
 
-docker stop $(docker ps -q)
-docker container rm $(docker container ls -aq)
-docker volume rm $(docker volume ls -q)$
-docker volume prune
+P1=./mybot
+# P2=./examplefuncsplayer-c
+P2=./examplefuncsplayer-python
 
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-
-docker run -it --privileged -p 16147:16147 -p 6147:6147 -v $DIR:/player --rm battlecode/battlecode-2018
+./battlecode.sh -tv -m ./battlecode-maps/socket.bc18map -p1 "$P1" -p2 "$P2"
+# ./battlecode.sh -m ./battlecode-maps/socket.bc18map -p1 "$P1" -p2 "$P2"
